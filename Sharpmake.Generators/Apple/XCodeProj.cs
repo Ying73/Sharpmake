@@ -896,7 +896,11 @@ namespace Sharpmake.Generators.Apple
                 return "-l" + library;
             }));
 
-            options["ExecutablePrefix"] = RemoveLineTag;
+            // TODO: when the above is fixed, we won't need this anymore
+            if (conf.Output == Project.Configuration.OutputType.Dll)
+                options["ExecutablePrefix"] = "lib";
+            else
+                options["ExecutablePrefix"] = RemoveLineTag;
 
             if (conf.DefaultOption == Options.DefaultTarget.Debug)
                 conf.Defines.Add("_DEBUG");
